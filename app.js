@@ -1,4 +1,21 @@
-var envoi= [];
+window.onload=function() {
+  horloge('horloge');
+};
+ 
+function horloge(el) {
+  if(typeof el=="string") { el = document.getElementById(el); }
+  function actualiser() {
+    var date = new Date();
+    var str = date.getHours();
+    str += ':'+(date.getMinutes()<10?'0':'')+date.getMinutes();
+    str += ':'+(date.getSeconds()<10?'0':'')+date.getSeconds();
+    el.innerHTML = str;
+  }
+  actualiser();
+  setInterval(actualiser,1000);
+}
+
+
 var titre = ""
 var text = ""
 
@@ -17,7 +34,6 @@ $("#button").click(function(){
 	var contenu = {"titre" : titre, "text" : text}
 	$("input").val("");
 	$("textarea").val("");
-	envoi.push(contenu);
 
     $.ajax({
         
@@ -29,7 +45,7 @@ $("#button").click(function(){
             
             key: 'Romainblog',
             
-            value: JSON.stringify(envoi),
+            value: JSON.stringify(contenu),
         }
     });
     
@@ -38,14 +54,14 @@ $("#button").click(function(){
 
 function envoyer(tableau){
  	for (var i = 0; i < tableau.length; i++) {
- 		$("#title").append('<a><div><li>'+tableau[i][i].titre+'</div></li></a>');
- 		$("#article").append('<div>'+tableau[i][i].text+'</div>')
+ 		$("#title").append('<a><div><li>'+tableau[i].titre+'</div></li></a>');
+ 		$("#article").append('<div>'+tableau[i].text+'</div>')
  	}
 }
 
 
 
-function afficher(){
+function afficher(affiche){
 	$.ajax({ 
 		url:'http://192.168.1.50/json-db', 
 		data: { 
@@ -55,9 +71,11 @@ function afficher(){
 	})
 	.done(function(data){
 
-		envoi=JSON.parse(data);
-		console.log(envoi);
-		envoyer(envoi);
+		contenu=JSON.parse(data);
+		envoyer(contenu);
+		console.log(contenu);
+		
+
 	});	
 
 }
@@ -65,16 +83,19 @@ function afficher(){
 afficher();
 
 	$("#supprimer").click(function(){
-		
-	$.ajax({
-    url: 'http://192.168.1.50/json-db',
-    data: {
-    	task: 'delete',
-    	key: 'Romainblog',
-          	}
-		});
-	});
 
+ 	$.ajax({
+	url:'http://192.168.1.50/json-db',
+	data: {
+		task: 'delete',
+		_id: '58f62c32a4348121be233762',
+		}
+	})
+});	
+
+
+	
+	
 $('#text').keyup(function(){
 
 	var convertir = new showdown.Converter()
@@ -85,16 +106,6 @@ $('#text').keyup(function(){
 });
 
 
-
-    // $("#modifier").click(function(){
-    // 	$("#article").html(function(){
-
-    // 	});
-    // });
-
-
-
-		
 
 
 

@@ -24,6 +24,7 @@
 
 <form>
   <div class="form-group">
+  <div id="horloge" class="pull-right"></div>
   <center>
   <h3>Ecrivez votre article</h3>
   </center>
@@ -35,11 +36,12 @@
     <label for="article"></label>
     <textarea class="form-control" id="text" rows="5" placeholder="Ecrivez le texte"></textarea>
     <label for="markdown"></label>
-    <textarea class="form-control" id="text1" rows="5"></textarea>
-
-  </div>
+    <div  class="form-control" id="text1" rows="5"></div>
+    </div>
 </form>
-  <button class="btn btn-success btn-block" id="button">Envoyez</button>
+  <button class="btn btn-success" id="button">Envoyez</button>
+  <button class="btn btn-danger" id="supprimer">Supprimer l'article</button>
+  <button class="btn btn-info" id="modifier">Modifier l'article</button>
 
     
     <script src="node_modules/jquery/dist/jquery.js"></script>
