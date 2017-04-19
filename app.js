@@ -1,18 +1,18 @@
 window.onload=function() {
-  horloge('horloge');
+	horloge('horloge');
 };
- 
+
 function horloge(el) {
-  if(typeof el=="string") { el = document.getElementById(el); }
-  function actualiser() {
-    var date = new Date();
-    var str = date.getHours();
-    str += ':'+(date.getMinutes()<10?'0':'')+date.getMinutes();
-    str += ':'+(date.getSeconds()<10?'0':'')+date.getSeconds();
-    el.innerHTML = str;
-  }
-  actualiser();
-  setInterval(actualiser,1000);
+	if(typeof el=="string") { el = document.getElementById(el); }
+	function actualiser() {
+		var date = new Date();
+		var str = date.getHours();
+		str += ':'+(date.getMinutes()<10?'0':'')+date.getMinutes();
+		str += ':'+(date.getSeconds()<10?'0':'')+date.getSeconds();
+		el.innerHTML = str;
+	}
+	actualiser();
+	setInterval(actualiser,1000);
 }
 
 
@@ -35,39 +35,39 @@ $("#button").click(function(){
 	$("input").val("");
 	$("textarea").val("");
 
-    $.ajax({
-        
-        url:'http://192.168.1.50/json-db',
-        
-        data: {
-            
-            task: 'set',
-            
-            key: 'Romainblog',
-            
-            value: JSON.stringify(contenu),
-        }
-    });
-    
+	$.ajax({
+		
+		url:'http://192.168.1.50/json-db',
+		
+		data: {
+			
+			task: 'set',
+			
+			key: 'Romainblog',
+			
+			value: JSON.stringify(contenu),
+		}
+	});
+	
 });
 
 
 function envoyer(tableau){
- 	for (var i = 0; i < tableau.length; i++) {
- 		$("#title").append('<a><div><li>'+tableau[i].titre+'</div></li></a>');
- 		$("#article").append('<div>'+tableau[i].text+'</div>')
- 	}
+	for (var i = 0; i < tableau.length; i++) {
+		$("#title").append('<a><div><li>'+tableau[i].titre+'</div></li></a>');
+		$("#article").append('<div>'+tableau[i].text+'</div>')
+	}
 }
 
 
 
 function afficher(affiche){
 	$.ajax({ 
-		url:'http://192.168.1.50/json-db', 
+		url:'http://192.168.0.50/json-db', 
 		data: { 
 			task: 'get',
 			key: 'Romainblog', 
-			} 
+		} 
 	})
 	.done(function(data){
 
@@ -82,26 +82,26 @@ function afficher(affiche){
 
 afficher();
 
-	$("#supprimer").click(function(){
+$("#supprimer").click(function(){
 
- 	$.ajax({
-	url:'http://192.168.1.50/json-db',
-	data: {
-		task: 'delete',
-		_id: '58f62c32a4348121be233762',
+	$.ajax({
+		url:'http://192.168.1.50/json-db',
+		data: {
+			task: 'delete',
+			_id: '58f62c32a4348121be233762',
 		}
 	})
 });	
 
 
-	
-	
+
+
 $('#text').keyup(function(){
 
 	var convertir = new showdown.Converter()
-    text= $('#text').val()
-    var html= convertir.makeHtml(text)
-    $("#text1").html(html);
+	text= $('#text').val()
+	var html= convertir.makeHtml(text)
+	$("#text1").html(html);
 
 });
 
