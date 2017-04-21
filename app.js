@@ -1,23 +1,38 @@
-window.onload=function() {
-	horloge('horloge');
-};
-
-function horloge(el) {
-	if(typeof el=="string") { el = document.getElementById(el); }
-	function actualiser() {
-		var date = new Date();
-		var str = date.getHours();
-		str += ':'+(date.getMinutes()<10?'0':'')+date.getMinutes();
-		str += ':'+(date.getSeconds()<10?'0':'')+date.getSeconds();
-		el.innerHTML = str;
+function HeureCheckEJS()
+{
+	krucial = new Date;
+	heure = krucial.getHours();
+	min = krucial.getMinutes();
+	sec = krucial.getSeconds();
+	jour = krucial.getDate();
+	mois = krucial.getMonth()+1;
+	annee = krucial.getFullYear();
+	if (sec < 10)
+		sec0 = "0";
+	else
+		sec0 = "";
+	if (min < 10)
+		min0 = "0";
+	else
+		min0 = "";
+	if (heure < 10)
+		heure0 = "0";
+	else
+		heure0 = "";
+	DinaHeure = heure0 + heure + ":" + min0 + min + ":" + sec0 + sec;
+	which = DinaHeure
+	if (document.getElementById){
+		document.getElementById("heure").innerHTML=which;
 	}
-	actualiser();
-	setInterval(actualiser,1000);
+	setTimeout("HeureCheckEJS()", 1000)
 }
+window.onload = HeureCheckEJS;
 
 
 var titre = ""
 var text = ""
+
+
 
 $("#titre").keyup(function(){
 	titre = $("#titre").val();
@@ -29,72 +44,63 @@ $("#text").keyup(function(){
 
 });	
 
+
 $("#button").click(function(){
 
 	var contenu = {"titre" : titre, "text" : text}
-	$("input").val("");
 	$("textarea").val("");
+	$("input").val("");
 
-	$.ajax({
-		
+	$.ajax({ 
 		url:'http://192.168.1.50/json-db',
-		
-		data: {
-			
-			task: 'set',
-			
-			key: 'Romainblog',
-			
+		data: { 
+			task: 'set', 
+			key: 'Romainblog', 
 			value: JSON.stringify(contenu),
-		}
+
+		} 
 	});
-	
 });
 
 
-function envoyer(tableau){
-	for (var i = 0; i < tableau.length; i++) {
-		$("#title").append('<a><div><li>'+tableau[i].titre+'</div></li></a>');
-		$("#article").append('<div>'+tableau[i].text+'</div>')
+
+
+
+var recup;
+
+$.ajax({ 
+	url:'http://192.168.1.50/json-db', 
+	data: { 
+		task: 'get',
+		key: 'Romainblog', 
+	} 
+})
+.done(function(data){
+
+	recup=JSON.parse(data);
+	console.log(recup);
+
+	for (var i = 0; i < recup.length; i++) {
+		$("#title").append('<div><option value="'+i+'">'+recup[i].titre+'</option></div>');
+		$("#article").append('<div class="ID'+i+'">'+recup[i].text+'</div>');
+		$('#title').html()
+		$('#contenu').append('<li value="'+i+'">'+recup[i].titre+' <button class="waves-effect waves-light btn-small red" id="supprimer">Supprimer</button></li>');
 	}
-}
+	$('#supprimer').click(function(){
+		var id = $(this).data('_id');
 
 
+		$.ajax({
+			url:'http://192.168.1.50/json-db',
+			data: {
+				task: 'delete',
+				_id: id,
+			}
+		});
 
-function afficher(affiche){
-	$.ajax({ 
-		url:'http://192.168.0.50/json-db', 
-		data: { 
-			task: 'get',
-			key: 'Romainblog', 
-		} 
-	})
-	.done(function(data){
+	});
 
-		contenu=JSON.parse(data);
-		envoyer(contenu);
-		console.log(contenu);
-		
-
-	});	
-
-}
-
-afficher();
-
-$("#supprimer").click(function(){
-
-	$.ajax({
-		url:'http://192.168.1.50/json-db',
-		data: {
-			task: 'delete',
-			_id: '58f62c32a4348121be233762',
-		}
-	})
-});	
-
-
-
+});
 
 $('#text').keyup(function(){
 
@@ -112,11 +118,45 @@ $('#text').keyup(function(){
 
 
 
-    
 
 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

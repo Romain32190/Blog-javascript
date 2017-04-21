@@ -3,37 +3,34 @@
 <head>
 	<title>Blog Javascript</title>
 	<meta charset="utf-8">
-	<link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
-		<div class="navbar-wrapper">
-			<nav class="navbar navbar-inverse navbar-static-top">
-				<div id="navbar" class="navbar-collapse collapse">
-					<div class="navbar-center">
-						<h3 class="navbar-brand" href="#">BLOG</h3>
-						<div class="pull-right">
-							<ul class="nav navbar-nav">
-							</ul>
-							<a href="file:///home/lafargue/Documents/Blog-javascript/index.html">
-								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-									<span class="glyphicon glyphicon-align-justify"></span>
-								</button>
-							</div>
-						</a>
-					</nav>
-					<div id ="title" class="col-xs-4"><h2>Titre de l'article</h2></div>
+	<ul id="dropdown1" class="dropdown-content">
+		<li><a href="index.html">Admin</a></li>
+	</ul>
+	<nav>
+		<div class="nav-wrapper">
+			<ul class="right hide-on-med-and-down">
+				<li><a class="dropdown-button" href="index.html" data-activates="dropdown1" class="btn btn-floating pulse"><i class="material-icons">menu</i></a></li>
+				</ul>
+	<div id="heure" class="center-align"></div>
+			</div>
+		</nav>
+		<div class="row">
+		<div class="col s12">
+		<div id ="title" class="col m4"><h3>Titre de l'article</h3></div>
+		<div id="infotitre" rows="10"></div>
 
-					<div id="article" class="col-xs-8"><center><h2>Lis l'article</h2></center></div>
+		<center><div id="article" class="col m8"><h3>Article</h3></div></center>
 
-
-				</div>
-
-				<script src="node_modules/jquery/dist/jquery.js"></script>
-				<script src="app.js"></script>
+		<script src="node_modules/jquery/dist/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+		<script src="app.js"></script>
 
 
-			</body>
-			</html>
+	</body>
+	</html>
 
 
