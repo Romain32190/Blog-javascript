@@ -32,17 +32,18 @@ window.onload = HeureCheckEJS;
 var titre = ""
 var text = ""
 
+var recup;
 
 
-$("#titre").keyup(function(){
-	titre = $("#titre").val();
+// $("#titre").keyup(function(){
+// 	titre = $("#titre").val();
+// 	text = $("#text").val();
 
-});	
+// });	
 
-$("#text").keyup(function(){
-	text = $("#text").val();
+// $("#text").keyup(function(){
 
-});	
+// });	
 
 
 $("#button").click(function(){
@@ -58,7 +59,7 @@ $("#button").click(function(){
 			key: 'Romainblog', 
 			value: JSON.stringify(contenu),
 
-		} 
+		}
 	});
 });
 
@@ -66,7 +67,6 @@ $("#button").click(function(){
 
 
 
-var recup;
 
 $.ajax({ 
 	url:'http://192.168.1.50/json-db', 
@@ -84,11 +84,11 @@ $.ajax({
 		$("#title").append('<div><option value="'+i+'">'+recup[i].titre+'</option></div>');
 		$("#article").append('<div class="ID'+i+'">'+recup[i].text+'</div>');
 		$('#title').html()
-		$('#contenu').append('<li value="'+i+'">'+recup[i].titre+' <button class="waves-effect waves-light btn-small red" id="supprimer">Supprimer</button></li>');
+		$('#contenu').append('<li >'+recup[i].titre+' <button  value="'+recup[i]._id+'" class="waves-effect waves-light btn-small red supprimer">Supprimer</button><button class="waves-effect waves-light btn-small blue" id="modifier">Modifier</button></li>');
 	}
-	$('#supprimer').click(function(){
-		var id = $(this).data('_id');
-
+	$('.supprimer').click(function(){
+		var id = $(this).attr('value');
+		console.log(id);
 
 		$.ajax({
 			url:'http://192.168.1.50/json-db',
@@ -105,7 +105,8 @@ $.ajax({
 $('#text').keyup(function(){
 
 	var convertir = new showdown.Converter()
-	text= $('#text').val()
+	text= $('#text').val();
+	titre= $('#titre').val();
 	var html= convertir.makeHtml(text)
 	$("#text1").html(html);
 
